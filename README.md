@@ -9,3 +9,6 @@ some codes and notes about CSAPP in 15-213 course
 
 - [attack lab 笔记](lab-notes/attack.md)
 
+## 4. cache lab ---> working
+
+- [cache lab 笔记](lab-notes/cache.md)
