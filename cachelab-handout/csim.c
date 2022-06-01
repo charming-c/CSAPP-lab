@@ -134,6 +134,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+// 最后发现没有必要
 int hex2dec(unsigned source)
 {
     int ans = 0;
