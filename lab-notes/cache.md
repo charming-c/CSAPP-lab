@@ -1,7 +1,7 @@
 # cache lab 笔记解析
 ## part A 编写一个缓存模拟器
 通过文件输入的内存信息计算缓存的不命中、命中、以及迁徙的数量，主要就是通过计算给定的地址的 tag 位、组数去给定的缓存里寻找匹配，最后计算出结果
-```
+```c
 #include "cachelab.h"
 #include <getopt.h>
 #include <unistd.h>
@@ -202,3 +202,69 @@ int load(cache_line* cache, unsigned address, int num) {
     return 2;
 }
 ```
+
+## part B 编写缓存友好的矩阵转置函数
+先看条件和要求：
+- For each matrix size, the performance of your transpose_submit function is evaluated by using
+valgrind to extract the address trace for your function, and then using the reference simulator to replay
+this trace on a cache with parameters (s = 5, E = 1, b = 5).
+- 32 × 32: 8 points if m < 300, 0 points if m > 600
+- 64 × 64: 8 points if m < 1, 300, 0 points if m > 2, 000
+- 61 × 67: 10 points if m < 2, 000, 0 points if m > 3, 000
+
+提供的缓冲区 2^5 组，每组存放 2^5 个字节，每组一行，直接相联映射
+### 32 * 32 矩阵
+由于一个块 32 个字节，可以存放 8 个 int，而且对于 32 * 32 的矩阵，刚好第 8 行 才会覆盖第 0 行的内存(计算出的组数是相同的)，所以就使用 8 * 8 的块 进行分解
+```c
+ for (i = 0; i < N; i += 8)
+        {
+            for (j = 0; j < M; j += 8)
+            {
+                for (a = i; a < i + 8; a++)
+                {
+                    b = j;
+
+                    a0 = A[a][b];
+                    a1 = A[a][b + 1];
+                    a2 = A[a][b + 2];
+                    a3 = A[a][b + 3];
+                    a4 = A[a][b + 4];
+                    a5 = A[a][b + 5];
+                    a6 = A[a][b + 6];
+                    a7 = A[a][b + 7];
+
+                    B[b][a] = a0;
+                    B[b + 1][a] = a1;
+                    B[b + 2][a] = a2;
+                    B[b + 3][a] = a3;
+                    B[b + 4][a] = a4;
+                    B[b + 5][a] = a5;
+                    B[b + 6][a] = a6;
+                    B[b + 7][a] = a7;
+                }
+            }
+        }
+```
+
+### 61 * 67 矩阵
+这个矩阵是不规则的，随便分一下块试一下，发现 16 * 16 就可以拿满分
+```c
+for (i = 0; i < N; i += 16)
+        {
+            for (j = 0; j < M; j += 16)
+            {
+                for (a = i; a < i + 16 && a < N; a++)
+                {
+                    for (b = j; b < j + 16 && b < M; b++)
+                    {
+                        B[b][a] = A[a][b];
+                    }
+                }
+            }
+        }
+```
+> 这里说明一下 32 * 32 为什么用了临时变量现存放了 A 中的值，因为 我们访问 B 的时候其实会覆盖掉 缓存中 A 的值，所以一次读 8 个，然后再将 B 加载进内存，这里发现由于 miss 的限制太宽容了，这么写也可以过，因为不规则，其实又很多的 miss， 我有点没有 get 到为什么要设置这样的一个 测试
+
+### 64 * 64 矩阵
+能力有限，想不出来怎么写，参考了别人的代码
+- [讲解链接](https://zhuanlan.zhihu.com/p/387662272)
