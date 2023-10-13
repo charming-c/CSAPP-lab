@@ -7,6 +7,7 @@ int array[2] = {1, 2};
 int main() 
 {
     int val = sum(array, 2);
+    printf("%d\n",val);
     return val;
 }
 /* $end main */

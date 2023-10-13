@@ -1,6 +1,6 @@
 ## CSAPP-lab
 
-some codes and notes about CSAPP in 15-213 course
+some codes and notes about CSAPP in CMU 15-213 course
 
 ### 1. data lab ---> finish
 
