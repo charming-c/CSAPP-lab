@@ -8,13 +8,13 @@
 
 ![image-20220517193015629](https://raw.githubusercontent.com/charming-c/image-host/master/img/image-20220517193015629.png)
 
-可以看到，phase_1 函数只是调用了 strings_not_equal 函数就判断了炸弹是否爆炸，而对于 phase_1 函数，由源码可以知道会将读取的第一行传入作为第一个参数，所以到调用 strings_not_eqaul 时，函数一共有两个参数，而想要炸弹不爆炸，就必须保证传入的两个参数他们对于 string_not_eqauls 函数 返回值（保存在 %eax ）必须为1，而第二个参数就存储在 %esi 中， 在函数调用时打断点，同时将 %esi 中保存的地址转化为 char * 类型打印出来，答案就出来了
+可以看到，phase_1 函数只是调用了 strings_not_equal 函数就判断了炸弹是否爆炸，而对于 phase_1 函数，由源码可以知道会将读取的第一行传入作为第一个参数，所以到调用 strings_not_equal 时，函数一共有两个参数，而想要炸弹不爆炸，就必须保证传入的两个参数他们对于 string_not_equal 函数 返回值（保存在 %eax ）必须为1，而第二个参数就存储在 %esi 中， 在函数调用时打断点，同时将 %esi 中保存的地址转化为 char * 类型打印出来，答案就出来了
 
 
 
 > Strings_not_equal 比较两个字符串，内容相同 返回0， 不同 返回 正值
 >
-> 查看会=汇编发现函数的比较逻辑是这样的：
+> 查看汇编发现函数的比较逻辑是这样的：
 >
 > 1. 先计算两个字符串的长度，相同，则继续到第二步，不同则返回正值
 > 2. 依次从字符串的第一个 char 开始比较，相同，则将依次比较下一个，直到比较到字符串结尾，或者不相同为止
@@ -125,7 +125,7 @@ int func4 (int a, int b, int c) {
 而 fun7 推算出来的情况就是
 
 ```c
-int fun7(struct node *n, int v) {
+int fun7(struct node *p, int v) {
 	if(p == null) return -1;
 	else if(v < p->val) {
 		return 2 * fun7(p->left, v);
