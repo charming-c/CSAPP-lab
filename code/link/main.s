@@ -1,16 +1,27 @@
 	.file	"main.c"
 	.text
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC0:
+	.string	"%d\n"
+	.text
 	.globl	main
 	.type	main, @function
 main:
 .LFB0:
 	.cfi_startproc
-	subq	$8, %rsp
+	pushq	%rbx
 	.cfi_def_cfa_offset 16
+	.cfi_offset 3, -16
 	movl	$2, %esi
-	movl	$array, %edi
-	call	sum
-	addq	$8, %rsp
+	leaq	array(%rip), %rdi
+	call	sum@PLT
+	movl	%eax, %ebx
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	%ebx, %eax
+	popq	%rbx
 	.cfi_def_cfa_offset 8
 	ret
 	.cfi_endproc
@@ -18,11 +29,11 @@ main:
 	.size	main, .-main
 	.globl	array
 	.data
-	.align 4
+	.align 8
 	.type	array, @object
 	.size	array, 8
 array:
 	.long	1
 	.long	2
-	.ident	"GCC: (Ubuntu 4.8.1-2ubuntu1~12.04) 4.8.1"
+	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
 	.section	.note.GNU-stack,"",@progbits

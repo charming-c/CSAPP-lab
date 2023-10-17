@@ -1,5 +1,5 @@
 all: 
-	echo "Please specify a rule"
+	(cd ecf; make all)
 
 dist:
 	(cd opt; make dist)

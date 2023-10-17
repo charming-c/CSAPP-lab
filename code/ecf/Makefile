@@ -1,7 +1,7 @@
 CC = gcc
 CSAPP_INC = ../include
 CSAPP_SRC = ../src
-CFLAGS = -Wall -Og -I $(CSAPP_INC) -I . 
+CFLAGS = -Wall -Og -shared -fPIC -I $(CSAPP_INC) -I . 
 LDLIBS = -lpthread
 
 PROGS = fragments.o\
@@ -61,7 +61,7 @@ PROGS = fragments.o\
 	rfork-driver\
 	cmdline
 
-all: $(CSAPP_SRC)/csapp.o $(PROGS)
+all: $(CSAPP_SRC)/csapp.o  $(PROGS)
 
 # confirm that argc and argv are in registers
 cmdline: cmdline.c

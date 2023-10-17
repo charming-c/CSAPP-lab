@@ -13,4 +13,4 @@ some codes and notes about CSAPP in CMU 15-213 course
 ### 4. cache lab ---> finish
 - [cache lab 笔记](lab-notes/cache.md)
 
-### 5. shell lab ---> working
+### 5. shell lab ---> finish
