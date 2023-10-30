@@ -14,6 +14,7 @@ some codes and notes about CSAPP in CMU 15-213 course
 - [cache lab 笔记](lab-notes/cache.md)
 
 ### 5. shell lab ---> finish
+- [shell lab 笔记](shlab-handout/tsh.c)
 - signal kill me
 
 ### 6. malloc lab ---> doing
