@@ -19,6 +19,6 @@ int main(int argc, char **argv)
     }
     secs = atoi(argv[1]);
     for (i=0; i < secs; i++)
-	sleep(2);
+	sleep(1);
     exit(0);
 }
