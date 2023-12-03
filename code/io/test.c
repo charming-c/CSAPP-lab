@@ -80,12 +80,60 @@ void Fstat(int fd, struct stat *buf)
 	unix_error("Fstat error");
 }
 
+DIR *Opendir(const char *name) 
+{
+    DIR *dirp = opendir(name); 
 
-int main() {
-    char c;
+    if (!dirp)
+        unix_error("opendir error");
+    return dirp;
+}
 
-    while(Read(STDIN_FILENO, &c, 1) != 0) {
-        Write(STDOUT_FILENO, &c, 1);
+struct dirent *Readdir(DIR *dirp)
+{
+    struct dirent *dep;
+    
+    errno = 0;
+    dep = readdir(dirp);
+    if ((dep == NULL) && (errno != 0))
+        unix_error("readdir error");
+    return dep;
+}
+
+int Closedir(DIR *dirp) 
+{
+    int rc;
+
+    if ((rc = closedir(dirp)) < 0)
+        unix_error("closedir error");
+    return rc;
+}
+
+void print(int* p) {
+    printf("p: %p\n", p);
+    printf("*p: %d", *p);
+    printf("&p: %p", &p);
+}
+
+int main(int argc, char **argv) {
+   DIR *streamp; 
+    struct dirent *dep; 
+
+    /* $end readdir */
+    if (argc != 2) {
+        printf("usage: %s <pathname>\n", argv[0]);
+        exit(1);
     }
+    /* $begin readdir */
+    streamp = Opendir(argv[1]);
+
+    errno = 0;
+    while ((dep = readdir(streamp)) != NULL) { 
+        printf("Found file: %s\n", dep->d_name); 
+    } 
+    if (errno != 0)
+        unix_error("readdir error");
+
+    Closedir(streamp); 
     exit(0);
 }
