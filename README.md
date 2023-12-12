@@ -23,4 +23,9 @@ some codes and notes about CSAPP in CMU 15-213 course
 - [实验代码](./shlab-handout/tsh.c)
 - signal kill me !!!
 
-### 6. malloc lab ---> doing
+### 6. malloc lab ---> finish
+
+- [malloc lab 笔记](lab-notes/malloc.md)
+
+### 7. proxy lab ---> doing
+
