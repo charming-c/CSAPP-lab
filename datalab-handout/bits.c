@@ -195,8 +195,7 @@ int allOddBits(int x) {
   int a = 0xaa;
   a += 0xaa << 16;
   a += a<<8;
-  int ans = !((a & x) ^ a);
-  return ans;
+  return (!((a & x) ^ a));
 }
 /* 
  * negate - return -x 
@@ -285,8 +284,9 @@ int logicalNeg(int x) {
   int y = ~x + 1;
   // 这里的按位或利用了相反数的只有符号位不同的特性，可以很方便的求出符号位不同得最高位1
   int z = x | y;
+  int ans;
   z = z >> 31;
-  int ans = z + 1;
+  ans = z + 1;
   return ans;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
