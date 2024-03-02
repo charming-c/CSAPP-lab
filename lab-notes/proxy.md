@@ -2,7 +2,7 @@
 
 这是 CSAPP 的最后一个实验了，目的是写一个代理服务器，用于转发请求。写起来还是很开心的，越靠近网络的地方，越是让你感到神奇。
 
-<img src="/Users/charming/Library/Application Support/typora-user-images/image-20240303030634476.png" alt="image-20240303030634476" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/charming-c/image-host/master/img/image-20240303030634476.png" alt="image-20240303030634476" style="zoom:50%;" />
 
 在设置缓冲区时，我写了一个链表，每个节点代码一个缓存，采用头插的形式，LRU 的缓存策略只需要删除掉链表结尾的缓存就好了。实验没有处理手册上要求的健壮性，也就是一些中断的信号的处理，好在这样还是可以过评测的脚本，并且是满分的成绩。代码在[这里](../proxylab-handout/proxy.c)。
 
