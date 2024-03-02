@@ -28,5 +28,8 @@ some codes and notes about CSAPP in CMU 15-213 course
 - [malloc lab 笔记](lab-notes/malloc.md)
 - [实验代码](./malloclab-handout/mm.c)
 
-### 7. proxy lab ---> doing
+### 7. proxy lab ---> finish
+
+- [proxy lab 笔记](lab-notes/proxy.md)
+- I made it ！！！
 
