@@ -1,3 +1,17 @@
 GET / HTTP/1.0
 1234567
 
+GET / HTTP/1.0
+
+GET / HTTP/1.0
+123456
+1233
+
+GET cgi-bin?15&213 HTTP/1.0
+
+GET /cgi-bin?15&213 HTTP/1.0
+
+GET /cgi-binã/adder?15&213 HTTP/1.0
+
+GET /cgi-bin/adder?15&213 HTTP/1.0
+
